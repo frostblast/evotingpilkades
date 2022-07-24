@@ -78,27 +78,30 @@
       <h1 class="my-4 text-5xl text-center font-bold leading-tight">
           Pilih Salah Satu Calon Kepala Desa
       </h1>
-      <form method="POST" action="{{ route('proses.vote') }}" onsubmit="return confirm('Apakah Anda Yakin?');">
+      
         <div class="container px-3 mx-auto flex flex-wrap flex-col space-x-4 md:flex-row justify-center">
           <div class="grid mt-5 w-3/5 h-1/3 grid-cols-1 md:lg:xl:grid-cols-3 group">
             @foreach ($paslon as $item)
-            <input type="radio" id="voteRadio" class="hidden">
-              <label for="voteRadio" class="max-w-sm cursor-pointer bg-white hover:bg-emerald-500 transition translate hover:text-white rounded-2xl mr-4 overflow-hidden shadow-lg">
-                <img class="w-full rounded-2xl" src="{{ asset('/storage/'. $item->foto) }}">
-                  <div class="px-6 py-4 text-center">
-                  <div class="font-bold text-black hover:text-white text-xl mb-2">{{ $item->nama }}</div>
-                </div>
-              </label>
-            </input>
+            <div for="voteRadio" class="max-w-sm bg-white rounded-2xl mr-4 overflow-hidden shadow-lg">
+              <img class="w-full rounded-2xl" src="{{ asset('/storage/'. $item->foto) }}">
+              <div class="px-6 py-4 text-center">
+                <div class="font-bold text-black text-xl mb-2">{{ $item->nama }}</div>
+              </div>
+            <form method="POST" action="{{ route('proses.vote') }}">
+              @csrf
+              <input type="hidden" value="{{ Auth::user('guard:dpt')->id }}" name="dpt_id"> 
+              <input type="hidden" value="{{ $item->id }}" name="paslon_id"> 
+              <input type="hidden" value="{{ $item->no_urut }}" name="vot"> 
+              <div class="mx-auto text-center">
+                <button type="submit" class="mx-auto lg:mx-0 hover:underline bg-emerald-500 text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                  Pilih
+                </button>
+              </div>
+            </div>
+          </form>
             @endforeach
           </div>
         </div>
-        <section class="container mx-auto text-center py-6">
-            <button type="submit" class="mx-auto lg:mx-0 hover:underline bg-emerald-500 text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                Pilih
-            </button>
-        </section>
-      </form>
     </div>
     <div class="relative -mt-14 lg:-mt-22">
       <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

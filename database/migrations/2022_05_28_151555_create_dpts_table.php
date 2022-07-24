@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('dpts', function (Blueprint $table) {
             $table->id();
             $table->string('nik')->unique();
-            $table->string('role')->nullable();
+            // $table->string('role')->nullable();
             $table->string('nama');
             $table->enum('jk', ['Laki-Laki', 'Perempuan']);
             $table->string('alamat');

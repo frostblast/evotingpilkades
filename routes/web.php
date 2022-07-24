@@ -10,6 +10,8 @@ use App\Http\Controllers\InputController;
 use App\Http\Controllers\PaslonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Models\Voting;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\DptAuthController;
 /*
 |--------------------------------------------------------------------------
@@ -43,14 +45,14 @@ Route::middleware('auth')->group(function () {
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::resource('/dashboard/dpt', DptController::class);
+    Route::post('/dashboard/dpt/{id}', [DptController::class, 'inputPassword'])->name('input.password');
     Route::resource('/dashboard/kandidat', PaslonController::class);
     Route::resource('/dashboard/rekapitulasi', CountController::class);
-    // Route::resource('/inputktp', InputController::class);
 });
 
 Route::get('/vote', [DptAuthController::class, 'index'])->name('voter.index');
 Route::post('/vote', [DptAuthController::class, 'login'])->name('voter.login');
-Route::get('/keluar', [DptAuthController::class, 'logout'])->name('voter.logout');
+Route::post('/keluar', [DptAuthController::class, 'logout'])->name('voter.logout');
 
 Route::group(['middleware' => ['auth:dpt']], function() {
     Route::get('vote/kandidat', [VoteController::class, 'kandidat'])->name('voting');

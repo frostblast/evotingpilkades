@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dpt;
+use App\Models\Voting;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class DptController extends Controller
 {
@@ -16,9 +18,10 @@ class DptController extends Controller
      */
     public function index()
     {
-        return view('admin.dpt.dpts', [
-            'dpts' => Dpt::latest()->filter(request(['search']))->paginate(15)
-        ]);
+            return view('admin.dpt.dpts', [
+                'dpts' => Dpt::latest()->filter(request(['search']))->paginate(15),
+            ]);
+        // return redirect ('/vote/kandidat');
     }
 
     /**
@@ -45,7 +48,8 @@ class DptController extends Controller
             'jk' => 'required|string',
             'alamat' => 'required|string',
             'tgllahir' => 'required|date',
-            'status' => 'required'
+            'status' => 'required',
+            'password' => 'required'
         ]);
 
 
@@ -62,9 +66,19 @@ class DptController extends Controller
      */
     public function show($id)
     {
-        //
+        $dpt = Dpt::find($id);
+        return view('admin.dpt.show', compact(['dpt']));
     }
 
+    public function inputPassword(Request $request, Dpt $dpt) {
+        // return $request->all();
+        $validate = $request->validate([
+            'password' => 'required'
+        ]);
+
+        $dpt->update(['password' => bcrypt($request->password)]);
+        return redirect()->route('dpt.index')->with('success','Password Berhasil Ditambahkan');
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -91,7 +105,8 @@ class DptController extends Controller
             'jk' => 'required|string',
             'alamat' => 'required|string',
             'tgllahir' => 'required|date',
-            'status' => 'required'
+            'status' => 'required',
+            'password' => 'required'
         ];
 
         if($request->nik != $dpt->nik){

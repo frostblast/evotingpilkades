@@ -22,8 +22,7 @@ class DptSeeder extends Seeder
             'alamat' => 'jl.anggur',
             'tgllahir' => '2002-08-08',
             'status' => '1',
-            'password' => bcrypt(12345678),
-            'role' => 'voter'
+            'password' => bcrypt(12345678)
         ]);
     }
 }

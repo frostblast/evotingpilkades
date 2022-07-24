@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Paslon;
 use App\Models\Dpt;
-// use App\Models\Vote;
+use App\Models\Voting;
 
 class VoteController extends Controller
 {
@@ -17,13 +17,22 @@ class VoteController extends Controller
         }
     }
     
-
     public function voting() {
+        // dd(Auth::user('guard:dpt')->id);
         $paslon = Paslon::get();
         return view('voting.pilihcalon', compact(['paslon']));
     }
 
-
+    public function prosesvoting(Request $request) {
+        $validatedData = $request->validate([
+            'dpt_id' => 'required',
+            'paslon_id' => 'required',
+            'vot' => 'required'
+        ]);
+        Voting::create($validatedData);
+        Dpt::whereId($request->dpt_id)->update(['status' => 1]);
+            return redirect ('/')->with('Data Berhasil Ditambahkan');
+    }
     
     /**
      * Display a listing of the resource.
@@ -65,9 +74,6 @@ class VoteController extends Controller
      */
     public function show($id)
     {
-        // $tampil = Paslon::find('id')->get();
-        // return view('voting.show', compact(['tampil']));
-        $tampil = Paslon::find($id); 
         return view('voting.show', compact(['tampil']));
     }
 

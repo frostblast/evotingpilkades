@@ -58,12 +58,26 @@
               <a id="menuAction3" class="inline-block py-2 px-4 text-white font-semibold no-underline" href="#h">Rekapitulasi Suara</a>
             </li>
           </ul>
+          @auth('dpt')
+          <form method="POST" action="{{ route('voter.logout') }}">
+            @csrf
+            <button href="route('voter.logout')"
+                    onclick="event.preventDefault(); this.closest('form').submit();"
+                    class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+
+                {{ __('Log Out') }}
+            </button>
+        </form>
+          @endauth
           <button
-            id="navAction"
-            class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-          >
-            <a href="{{ url('/vote')}}">Mulai E-voting</a>
-          </button>
+          id="navAction"
+          class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+        >
+          <a href="{{ url('/vote')}}">Mulai E-voting</a>
+        </button>
+
+          
+          
         </div>
       </div>
       <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />

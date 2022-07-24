@@ -25,7 +25,7 @@ class Dpt extends Authenticatable
         'alamat',
         'tgllahir',
         'status',
-        'role'
+        'password'
     ];
 
     protected $guarded = [];
@@ -39,9 +39,11 @@ class Dpt extends Authenticatable
     public function getStatusLabelAttribute()
     {
         if ($this->status == 0) {
-            return '<span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">Belum Memilih</span>';
+            return '<span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
+            Belum Memilih</span>';
         }
-        return '<span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Sudah Memilih</span>';
+        return '<span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+            Sudah Memilih</span>';
     }
 
     public function scopeFilter($query, array $filters){
@@ -58,7 +60,6 @@ class Dpt extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 

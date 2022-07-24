@@ -52,7 +52,7 @@
             <li class="mr-3">
               <a id="menuAction" class="inline-block py-2 px-4 text-white font-semibold no-underline" href="#">Selamat Datang, {{ Auth::user('guard:dpt')->nama }}</a>
             </li>
-          <form method="get" action="{{ route('vote.kandidat') }}">
+          {{-- <form method="get" action="{{ route('vote.kandidat') }}">
             @csrf
             <div class="row items-end">
               <button
@@ -60,7 +60,7 @@
               class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
             >Mulai E-voting</button>
             </div>
-        </form>
+        </form> --}}
         </div>
       </div>
       <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
@@ -73,7 +73,7 @@
       </h1>
       <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row justify-center">
         <!--Left Col-->
-        <div class="grid mt-5 w-4/5 h-2/4 grid-cols-1 space-x-6 md:lg:xl:grid-cols-3 group">
+        <div class="grid mt-5 w-3/5 h-1/3 grid-cols-1 space-x-4 md:lg:xl:grid-cols-3 group">
         @foreach ($paslon as $item)
           <div class="max-w-sm bg-white rounded-2xl overflow-hidden shadow-lg">
             <img class="w-full rounded-2xl" src="{{ asset('/storage/'. $item->foto) }}">
@@ -90,11 +90,6 @@
           </div>  
           @endforeach
         </div>
-        
-        
-          
-        </div>
-
         <section class="container mx-auto mt-18 text-center py-12 mb-12">
           <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
             Sudah Siap?
@@ -108,6 +103,8 @@
             </button>
           </a>
         </section>
+
+
       </div>
     </div>
     <div class="relative -mt-14 lg:-mt-22">

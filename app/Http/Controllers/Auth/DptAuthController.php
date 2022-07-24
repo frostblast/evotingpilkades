@@ -16,7 +16,7 @@ class DptAuthController extends Controller
      */
     public function index () {
         if (Auth::guard('dpt')->check()) {
-            return redirect()->route('dpt.index');
+            return redirect()->route('voting');
         } else {
             return view('voting.votes');
         }
